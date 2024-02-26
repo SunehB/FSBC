@@ -8,6 +8,8 @@
 
    - Non-Goal:
          - The web-interface will not track satilites leaving the region above the querey. A new querey is only made when the previous song ends.
+     
    - Non-Functional Requirements:
+         - 
 
 4) Project Management
