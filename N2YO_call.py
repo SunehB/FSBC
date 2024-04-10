@@ -13,14 +13,14 @@ data = response.json()  #returns a dictionary with two keys: info (metadata) and
 
 sat_info = data["above"]    #sat_info is the array containing a dictionary for each satellite
 
-years = []
+satellites = []
 
 for satellite in sat_info:
-    years.append(satellite["intDesignator"][:4])
+    satellites.append([satellite['satid'], satellite['satname'], satellite["intDesignator"][:4]])
 
-if len(years) == 0:
+if len(satellites) == 0:
     print("Sorry, no satellites ahead.")        #no satellites found case
 
-random_index = random.randint(0, len(years))    #get a random index to choose a random year
+random_index = random.randint(0, len(satellites))    #get a random index to choose a random year
 
-print(years[random_index])
+print(satellites[random_index])
