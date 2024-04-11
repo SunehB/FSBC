@@ -1,10 +1,13 @@
 from flask import Flask, render_template
+from flask_cors import CORS, cross_origin
 import requests
 import random
 import sqlite3
+from N2YO_call import get_sat_data
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def insertRow (db, cursor, id, date, song, client, satid):
       try:
@@ -31,6 +34,11 @@ def printTable(cursor):
 @app.route('/')
 def home():
    return render_template('index.html')
+
+@app.route("/satelite")
+@cross_origin()
+def satelite():
+    return get_sat_data()
 
 @app.route('/process', methods=['POST']) 
 def process(): 
