@@ -1,6 +1,10 @@
 import requests
 
-access_token = 'BQD_xPHyO_mPFQm8cLHNdZNWXEc338gXC8ombPzqWXejjs3bhIId6KHXZFe_ronJ_6QwKwAHecIrfZ03h03YUssFveG5CjZuuYlM8l4-SG9qIHdCu5c'
+<<<<<<< HEAD
+access_token = ''
+=======
+access_token = ''
+>>>>>>> b7b34fc5b39d85468d5c2a87d9fb725b202ed8b3
 year = 1969
 search_query = f'year:{year}'
 

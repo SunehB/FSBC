@@ -8,6 +8,7 @@ from N2YO_call import get_sat_data
 app = Flask(__name__, static_url_path='/static')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+id = 0
 
 def insertRow (db, cursor, id, date, song, client, satid):
       try:
@@ -62,6 +63,42 @@ def process():
    random_index = random.randint(0, len(satellites))    #get a random index to choose a random year
    N2YO_result = satellites[random_index]      #result is an array containing the satellite id, name, and year
 
+   #----------------------------------------------------------------------------------------------------------------
+      
+    access_token = ''
+    year = N2YO_result[2]
+    search_query = f'year:{year}'
+      
+    url = 'https://api.spotify.com/v1/search'
+      
+    headers = {
+          'Authorization': f'Bearer {access_token}',
+          'Content-Type': 'application/json'
+    }
+    params = {
+          'q': search_query,
+          'type': 'track',
+          'limit': 50,  
+          'market': 'US' 
+    }
+      
+      
+    response = requests.get(url, headers=headers, params= params)
+      
+    try:
+          data = response.json()
+          tracks = data['tracks']['items']
+          for track in tracks[:10]: 
+              print(f"Track Name: {track['name']}")
+              print(f"Popularity: {track['popularity']}")
+              print(f"Album Name: {track['album']['name']}")
+              print(f"Artists: {', '.join(artist['name'] for artist in track['artists'])}")
+              print(f"Release Date: {track['album']['release_date']}")
+              print(f"Spotify URL: {track['external_urls']['spotify']}\n")
+          
+    except Exception as err:
+          print(err)
+
    #--------------------------------------------------------------------------------------------------------------
    db = sqlite3.connect('DataBase.db')
    cursor = db.cursor()
@@ -69,14 +106,15 @@ def process():
    table ="""CREATE TABLE IF NOT EXISTS fsbcDB (id INTEGER PRIMARY KEY, date STRING, song STRING, client INTEGER, satid INTEGER);"""
    cursor.execute(table)
 
-   id = 0
+   id += 1
    date = '4-7-24'
    song = 'Never Gonna Give You Up'
    client = 83902
-   satid = years[random_index]
+   satid = N2YO_result[0]
    insertRow(db, cursor, id, date, song, client, satid)
     #--------------------------------------------------------------------------------------------------------------
-
+    
+  
    return render_template('index.html')
 
 if __name__ == '__main__':
