@@ -5,7 +5,7 @@ import random
 import sqlite3
 from N2YO_call import get_sat_data
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -35,6 +35,7 @@ def printTable(cursor):
 def home():
    return render_template('index.html')
 
+#returns satelite info to website
 @app.route("/satelite")
 @cross_origin()
 def satelite():
