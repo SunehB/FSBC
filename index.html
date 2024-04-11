@@ -11,8 +11,28 @@
     <p>This is a static HTML site served by Flask.</p>
 
     <button id="playMusic">Play Music</button>
+    <div id="data_placeholder"></div>
 
-    <script src="script.js"></script>
+    <script src="script.js">
+        // Define the API URL
+        const apiUrl = 'http://localhost:5000/satelite';
+
+        // Make a GET request
+        fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            document.getElementById("data_placeholder").textContent = data
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    </script>
 
 </body>
 </html>
