@@ -62,20 +62,8 @@ def process():
    random_index = random.randint(0, len(satellites))    #get a random index to choose a random year
    N2YO_result = satellites[random_index]      #result is an array containing the satellite id, name, and year
 
-   #--------------------------------------------------------------------------------------------------------------
-   db = sqlite3.connect('DataBase.db')
-   cursor = db.cursor()
-
-   table ="""CREATE TABLE IF NOT EXISTS fsbcDB (id INTEGER PRIMARY KEY, date STRING, song STRING, client INTEGER, satid INTEGER);"""
-   cursor.execute(table)
-
-   id = 0
-   date = '4-7-24'
-   song = 'Never Gonna Give You Up'
-   client = 83902
-   satid = years[random_index]
-   insertRow(db, cursor, id, date, song, client, satid)
-    #--------------------------------------------------------------------------------------------------------------
+   #----------------------------------------------------------------------------------------------------------------
+      
     access_token = ''
     year = N2YO_result[2]
     search_query = f'year:{year}'
@@ -96,8 +84,6 @@ def process():
       
     response = requests.get(url, headers=headers, params= params)
       
-      
-      
     try:
           data = response.json()
           tracks = data['tracks']['items']
@@ -111,6 +97,22 @@ def process():
           
     except Exception as err:
           print(err)
+
+   #--------------------------------------------------------------------------------------------------------------
+   db = sqlite3.connect('DataBase.db')
+   cursor = db.cursor()
+
+   table ="""CREATE TABLE IF NOT EXISTS fsbcDB (id INTEGER PRIMARY KEY, date STRING, song STRING, client INTEGER, satid INTEGER);"""
+   cursor.execute(table)
+
+   id = 0
+   date = '4-7-24'
+   song = 'Never Gonna Give You Up'
+   client = 83902
+   satid = years[random_index]
+   insertRow(db, cursor, id, date, song, client, satid)
+    #--------------------------------------------------------------------------------------------------------------
+    
   
    return render_template('index.html')
 
