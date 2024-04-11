@@ -2,6 +2,7 @@ import requests
 
 access_token = ''
 query = 'Yesterday artist:The Beatles'
+year = 1969
 url = f'https://api.spotify.com/v1/search?q={requests.utils.quote(query)}&type=track'
 
 headers = {
