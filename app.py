@@ -60,7 +60,7 @@ def process():
    if len(satellites) == 0:
       print("Sorry, no satellites ahead.")        #no satellites found case
    random_index = random.randint(0, len(satellites))    #get a random index to choose a random year
-   print(satellites[random_index])
+   N2YO_result = satellites[random_index]      #result is an array containing the satellite id, name, and year
 
    #--------------------------------------------------------------------------------------------------------------
    db = sqlite3.connect('DataBase.db')
