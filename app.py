@@ -8,6 +8,7 @@ from N2YO_call import get_sat_data
 app = Flask(__name__, static_url_path='/static')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+id = 0
 
 def insertRow (db, cursor, id, date, song, client, satid):
       try:
@@ -105,11 +106,11 @@ def process():
    table ="""CREATE TABLE IF NOT EXISTS fsbcDB (id INTEGER PRIMARY KEY, date STRING, song STRING, client INTEGER, satid INTEGER);"""
    cursor.execute(table)
 
-   id = 0
+   id += 1
    date = '4-7-24'
    song = 'Never Gonna Give You Up'
    client = 83902
-   satid = years[random_index]
+   satid = N2YO_result[0]
    insertRow(db, cursor, id, date, song, client, satid)
     #--------------------------------------------------------------------------------------------------------------
     
