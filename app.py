@@ -77,7 +77,7 @@ def process():
    insertRow(db, cursor, id, date, song, client, satid)
     #--------------------------------------------------------------------------------------------------------------
     access_token = ''
-    year = 1969
+    year = N2YO_result[2]
     search_query = f'year:{year}'
       
     url = 'https://api.spotify.com/v1/search'
