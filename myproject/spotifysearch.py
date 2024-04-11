@@ -25,7 +25,7 @@ response = requests.get(url, headers=headers, params= params)
 try:
     data = response.json()
     tracks = data['tracks']['items']
-    for track in tracks[:10]:  # Adjust as needed to display more or fewer results
+    for track in tracks[:10]: 
         print(f"Track Name: {track['name']}")
         print(f"Popularity: {track['popularity']}")
         print(f"Album Name: {track['album']['name']}")
