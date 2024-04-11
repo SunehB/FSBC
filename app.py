@@ -1,14 +1,13 @@
 from flask import Flask, render_template
-from flask_cors import CORS, cross_origin
+#from flask_cors import CORS, cross_origin
 import requests
 import random
 import sqlite3
-from N2YO_call import get_sat_data
+#from N2YO_call import get_sat_data
 
 app = Flask(__name__, static_url_path='/static')
-cors = CORS(app)
+#cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-id = 0
 
 def insertRow (db, cursor, id, date, song, client, satid):
       try:
@@ -32,15 +31,17 @@ def printTable(cursor):
       for row in rows:
          print(row)
 
+logID = 0
+
 @app.route('/')
 def home():
    return render_template('index.html')
 
 #returns satelite info to website
-@app.route("/satelite")
-@cross_origin()
-def satelite():
-    return get_sat_data()
+#@app.route("/satelite")
+#@cross_origin()
+#def satelite():
+#    return get_sat_data()
 
 @app.route('/process', methods=['POST']) 
 def process(): 
@@ -60,43 +61,44 @@ def process():
       satellites.append([satellite['satid'], satellite['satname'], satellite["intDesignator"][:4]])
    if len(satellites) == 0:
       print("Sorry, no satellites ahead.")        #no satellites found case
-   random_index = random.randint(0, len(satellites))    #get a random index to choose a random year
+   random_index = random.randint(0, len(satellites)-1)    #get a random index to choose a random year
    N2YO_result = satellites[random_index]      #result is an array containing the satellite id, name, and year
 
    #----------------------------------------------------------------------------------------------------------------
       
-    access_token = ''
-    year = N2YO_result[2]
-    search_query = f'year:{year}'
+   access_token = ''
+   year = N2YO_result[2]
+   search_query = f'year:{year}'
       
-    url = 'https://api.spotify.com/v1/search'
+   url = 'https://api.spotify.com/v1/search'
       
-    headers = {
+   headers = {
           'Authorization': f'Bearer {access_token}',
           'Content-Type': 'application/json'
-    }
-    params = {
+   }
+   params = {
           'q': search_query,
           'type': 'track',
           'limit': 50,  
           'market': 'US' 
-    }
+   }
       
       
-    response = requests.get(url, headers=headers, params= params)
+   response = requests.get(url, headers=headers, params= params)
       
-    try:
+   try:
           data = response.json()
           tracks = data['tracks']['items']
-          for track in tracks[:10]: 
+          for track in tracks[:1]: 
               print(f"Track Name: {track['name']}")
+              name = track['name']
               print(f"Popularity: {track['popularity']}")
               print(f"Album Name: {track['album']['name']}")
               print(f"Artists: {', '.join(artist['name'] for artist in track['artists'])}")
               print(f"Release Date: {track['album']['release_date']}")
               print(f"Spotify URL: {track['external_urls']['spotify']}\n")
           
-    except Exception as err:
+   except Exception as err:
           print(err)
 
    #--------------------------------------------------------------------------------------------------------------
@@ -106,12 +108,14 @@ def process():
    table ="""CREATE TABLE IF NOT EXISTS fsbcDB (id INTEGER PRIMARY KEY, date STRING, song STRING, client INTEGER, satid INTEGER);"""
    cursor.execute(table)
 
-   id += 1
+   global logID
+   logID += 1
    date = '4-7-24'
-   song = 'Never Gonna Give You Up'
+   song = name
    client = 83902
    satid = N2YO_result[0]
-   insertRow(db, cursor, id, date, song, client, satid)
+   insertRow(db, cursor, logID, date, song, client, satid)
+   printTable(cursor)
     #--------------------------------------------------------------------------------------------------------------
     
   
