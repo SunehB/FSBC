@@ -4,17 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Static HTML Site</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="static/style.css">
 </head>
 <body>
     <h1>Hello, World!</h1>
     <p>This is a static HTML site served by Flask.</p>
 
-    <form method="POST" action="/process"> 
-        <button type="submit">Call Function</button> 
-    </form> 
+    <button id="playMusic">Play Music</button>
+    <div id="data_placeholder"></div>
 
-    <script src="script.js"></script>
+    <script src="script.js">
+        // Define the API URL
+        const apiUrl = 'http://localhost:5000/satelite';
+
+        // Make a GET request
+        fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            document.getElementById("data_placeholder").textContent = data
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    </script>
 
 </body>
 </html>
