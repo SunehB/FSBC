@@ -1,13 +1,14 @@
 body {
-    background-color: black;
+    background-image: url('https://s.yimg.com/ny/api/res/1.2/GkZlDo2qBvbx4lwsWMLvNQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTE2MDA7aD05MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/space_311/b9e4448a95b0f8f97e96d51e9a796c50'); /* Replace 'background.jpg' with your image file */
+    background-size: cover;
+    background-position: center;
     color: white;
-    text-align: center;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     margin: 0;
-    flex-direction: column;
 }
 
 h1 {
@@ -29,4 +30,46 @@ button {
     cursor: pointer;
     border-radius: 5px;
     margin-top: 20px;
+}
+
+#nowPlayingSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+}
+
+#nowPlayingTitle {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#nowPlayingSong {
+    font-size: 20px;
+}
+
+/* Gradient border */
+body:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
+    z-index: -1;
+}
+
+body:after {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0,0,0,0.5), transparent);
+    z-index: -1;
 }

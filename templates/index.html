@@ -13,6 +13,8 @@
     <button id="playMusic">Play Music</button>
     <div id="data_placeholder"></div>
 
+
+
     <script src="script.js">
         // Define the API URL
         const apiUrl = 'http://localhost:5000/satelite';
@@ -28,6 +30,8 @@
         .then(data => {
             console.log(data);
             document.getElementById("data_placeholder").textContent = data
+            document.getElementById("nowPlayingSong").textContent = data; // Update the now playing song
+
         })
         .catch(error => {
             console.error('Error:', error);
