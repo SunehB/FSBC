@@ -4,7 +4,6 @@ from flask import Flask, render_template, url_for
 import requests
 import random
 import sqlite3
-import os
 
 # from N2YO_call import get_sat_data
 
@@ -47,7 +46,6 @@ logID = 0
 
 @app.route("/")
 def home():
-    print(url_for("static", filename="style.css"))
     return render_template("index.html")
 
 
