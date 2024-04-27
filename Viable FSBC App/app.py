@@ -48,7 +48,8 @@ logID = 0
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Render the template and pass an empty result initially
+    return render_template('index.html', n2yo_result=None)
 
 @app.route('/callback')
 def callback():
@@ -122,6 +123,9 @@ def play():
             return 'Song not found'
     else:
         return 'No active device available'
+        
+    return render_template('index.html', n2yo_result=N2YO_result)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
