@@ -13,8 +13,8 @@ import sqlite3
 app = Flask(__name__)
 
 # Spotify credentials
-CLIENT_ID = ''
-CLIENT_SECRET = ''
+CLIENT_ID = '05ab8816c9b84f0e8e6463243a925916'
+CLIENT_SECRET = '9aff823731084ee7b4ecc34770b93b8a'
 REDIRECT_URI = 'http://localhost:5000/callback'
 SCOPE = 'user-read-playback-state user-modify-playback-state'
 
@@ -77,6 +77,7 @@ def play():
     satId = N2YO_result[0]
     satName = N2YO_result[1]
     satYear = N2YO_result[2]
+    #get_satellite_image_url finds a picture of satellite based on ID
     print("Completed N2YO and selected: ", N2YO_result)
 #--------------------------------------------------------------------------------------------------------------
 	#Make a Spotify search based on the N2YO results
