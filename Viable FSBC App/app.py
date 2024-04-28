@@ -13,8 +13,8 @@ import sqlite3
 app = Flask(__name__)
 
 # Spotify credentials
-CLIENT_ID = '05ab8816c9b84f0e8e6463243a925916'
-CLIENT_SECRET = '9aff823731084ee7b4ecc34770b93b8a'
+CLIENT_ID = ''
+CLIENT_SECRET = ''
 REDIRECT_URI = 'http://localhost:5000/callback'
 SCOPE = 'user-read-playback-state user-modify-playback-state'
 
