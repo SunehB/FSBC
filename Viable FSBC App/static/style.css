@@ -10,13 +10,12 @@ body {
     margin: 0;
 }
 
-
 .container {
     text-align: center;
 }
 
 h1 {
-    color: black;
+    color: rgb(0, 60, 255); /* Changed text color to dark red */
     text-align: center;
     margin-bottom: 20px;
 }
@@ -36,4 +35,17 @@ button {
     border-radius: 4px;
     cursor: pointer;
     border: none;
+}
+
+/* Added styling for the section displaying satellite information */
+#n2yo-result {
+    background-color: white; /* Added white background */
+    padding: 20px; /* Added padding for better spacing */
+    border-radius: 8px; /* Added border-radius for rounded corners */
+    margin-top: 20px; /* Added margin-top for separation */
+    color: rgb(0, 0, 0); /* Changed text color to dark red */
+}
+
+#n2yo-result h2 {
+    margin-bottom: 10px; /* Added margin-bottom for better spacing */
 }
