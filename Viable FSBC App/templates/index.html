@@ -5,20 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Satellite Spotify Player</title>
     <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
-        <h1>Spotify Player</h1>
-        <form action="/play" method="post">
-            <button type="submit">Call Function</button> 
+        <h1 style="color: red;">Spotify Player</h1>
+        <form id="myForm" action="/play" method="post">
+            <button type="submit" class="btn btn-success">Find Satellite</button> 
         </form>
+        
+        <script>
+            document.getElementById('myForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Fetch data from the server
+                fetch('/play', {
+                    method: 'POST',
+                    body: new FormData(this) // Send form data
+                })
+                .then(response => response.json()) // Parse response as JSON
+                .then(data => {
+                    // Data is now an object containing the JSON response
+                    console.log(data);
+
+                    // Do something with the response data, e.g., display it on the page
+                    document.getElementById("satellite-id").textContent = data["n2yo_result"][0]
+                    document.getElementById("satellite-name").textContent = data["n2yo_result"][1]
+                    document.getElementById("satellite-year").textContent = data["n2yo_result"][2]
+
+                    // document.getElementById("spot_link")
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
         <!-- Add a section to display N2YO result -->
+        <!-- Only show this section if "data" is passed from server templat -->
+
             <div id="n2yo-result">
                 <h2>The Nearest Satellite</h2>
-                <p>Satellite ID: <span id="satellite-id"></span></p>
-                <p>Satellite Name: <span id="satellite-name"></span></p>
-                <p>Satellite Launch Year: <span id="satellite-year"></span></p>
+                <p>Satellite ID:  <span id="satellite-id"></span></p>
+                <p>Satellite Name:  <span id="satellite-name"></span></p>
+                <p>Satellite Launch Year:  <span id="satellite-year"></span></p>
             </div>
+
+            <div style="left: 0; bottom: 0; width: 40%; height: 352px; position: absolute;"><iframe id="spot_link" src="https://open.spotify.com/embed/track/{{song_id}}"  style="top: 80; left: 0; width: 80%; height: 80%; position: absolute; border: 0;" allowfullscreen allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe></div>
+
+
+
     </div>
 </body>
 </html>
