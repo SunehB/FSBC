@@ -66,6 +66,7 @@ def play():
     long = -71.059
     response = requests.get(f'https://api.n2yo.com/rest/v1/satellite/above/{lat}/{long}/0/10/0/&apiKey=') #key hidden (Dont Forget to Readd)
     data = response.json()  #returns a dictionary with two keys: info (metadata) and above (the actual satellite info)
+    print(data)
     sat_info = data["above"]    #sat_info is the array containing a dictionary for each satellite
     satellites = []
     for satellite in sat_info:
@@ -105,6 +106,7 @@ def play():
             print('--------------------------------')
             print('Playing: ' + song_name + ' based on satName and Id: ' + satName + ' ' + str(satId) + ' launched in year: ' + satYear)
             print('--------------------------------')
+            song_id = results['tracks']['items'][0][id]
             
 #--------------------------------------------------------------------------------------------------------------
 			#Store The Entry into SQL
@@ -119,13 +121,10 @@ def play():
             insertRow(db, cursor, logID, satYear, song, client, satId)
             printTable(cursor)
 #--------------------------------------------------------------------------------------------------------------
-            return redirect('/')
-        else:
-            return 'Song not found'
-    else:
-        return 'No active device available'
-        
-    return render_template('index.html', n2yo_result=N2YO_result)
+    # Get spotify link to embed on website
+    sp_searched = sp.search(song_name)
+
+    return {"spotify_result": song_id, "n2yo_result": N2YO_result}
 
 
 if __name__ == '__main__':
