@@ -10,11 +10,22 @@
 <body>
     <div class="container">
         <h1 style="color: red;">Spotify Player</h1>
-        <form id="myForm" action="/play" method="post">
-            <button type="submit" class="btn btn-success">Find Satellite</button> 
-        </form>
         
-        <script>
+        <!-- <form id="myForm" action="/play" method="post">
+            <button type="submit" class="btn btn-success">Find Satellite</button> 
+        </form> -->
+
+        <form action="/play" method="post">
+            <label for="long">Longitude:</label>
+            <input type="text" id="long" name="long"><br><br>
+            <label for="lat">Latitude:</label>
+            <input type="text" id="lat" name="lat"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        <!-- <script> -->
+        
+             <!-- /*
             document.getElementById('myForm').addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent the default form submission
 
@@ -40,18 +51,17 @@
                     console.error('Error:', error);
                 });
             });
-        </script>
+            */
+        // </script> -->
         <!-- Add a section to display N2YO result -->
         <!-- Only show this section if "data" is passed from server templat -->
 
-            <div id="n2yo-result">
+            <!-- <div id="n2yo-result">
                 <h2>The Nearest Satellite</h2>
                 <p>Satellite ID:  <span id="satellite-id"></span></p>
                 <p>Satellite Name:  <span id="satellite-name"></span></p>
                 <p>Satellite Launch Year:  <span id="satellite-year"></span></p>
-            </div>
-
-            <div style="left: 0; bottom: 0; width: 40%; height: 352px; position: absolute;"><iframe id="spot_link" src="https://open.spotify.com/embed/track/{{song_id}}"  style="top: 80; left: 0; width: 80%; height: 80%; position: absolute; border: 0;" allowfullscreen allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"></iframe></div>
+            </div> -->
 
 
 
