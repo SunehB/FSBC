@@ -15,7 +15,7 @@ app = Flask(__name__)
 # Spotify credentials
 CLIENT_ID = ''
 CLIENT_SECRET = ''
-REDIRECT_URI = 'http://localhost:5000/callback'
+REDIRECT_URI = 'http://127.0.0.1:5000/callback'
 SCOPE = 'user-read-playback-state user-modify-playback-state'
 
 # Spotify authentication
@@ -46,10 +46,11 @@ def printTable(cursor):
          
 logID = 0
 
+
 @app.route('/')
 def index():
     # Render the template and pass an empty result initially
-    return render_template('index.html', n2yo_result=None)
+    return render_template('index.html', n2yo_results=None)
 
 @app.route('/callback')
 def callback():
@@ -62,11 +63,13 @@ def callback():
 def play():
 #--------------------------------------------------------------------------------------------------------------
 	#N2YO Call to retrieve Satillite
-    lat = 42.360
-    long = -71.059
+    long = request.form['long']
+    lat = request.form['lat']
+    #lat = 42.360
+    #long = -71.059
     response = requests.get(f'https://api.n2yo.com/rest/v1/satellite/above/{lat}/{long}/0/10/0/&apiKey=') #key hidden (Dont Forget to Readd)
     data = response.json()  #returns a dictionary with two keys: info (metadata) and above (the actual satellite info)
-    print(data)
+    #print(data)
     sat_info = data["above"]    #sat_info is the array containing a dictionary for each satellite
     satellites = []
     for satellite in sat_info:
@@ -78,6 +81,7 @@ def play():
     satId = N2YO_result[0]
     satName = N2YO_result[1]
     satYear = N2YO_result[2]
+    
     #get_satellite_image_url finds a picture of satellite based on ID
     print("Completed N2YO and selected: ", N2YO_result)
 #--------------------------------------------------------------------------------------------------------------
@@ -87,10 +91,11 @@ def play():
         song_name = 'Fortunate son'
     else:
         song_name = satYear
-        
     token_info = sp_oauth.get_cached_token()
+
     if not token_info:
         return redirect(sp_oauth.get_authorize_url())
+    
     token = token_info['access_token']
     sp = Spotify(auth=token)
 
@@ -106,7 +111,7 @@ def play():
             print('--------------------------------')
             print('Playing: ' + song_name + ' based on satName and Id: ' + satName + ' ' + str(satId) + ' launched in year: ' + satYear)
             print('--------------------------------')
-            song_id = results['tracks']['items'][0][id]
+            song_id = results['tracks']['items'][0]['id']
             
 #--------------------------------------------------------------------------------------------------------------
 			#Store The Entry into SQL
@@ -121,10 +126,12 @@ def play():
             insertRow(db, cursor, logID, satYear, song, client, satId)
             printTable(cursor)
 #--------------------------------------------------------------------------------------------------------------
-    # Get spotify link to embed on website
-    sp_searched = sp.search(song_name)
+            return redirect('/')
 
-    return {"spotify_result": song_id, "n2yo_result": N2YO_result}
+        else:
+            return 'Song not found'
+    else:
+        return 'No active device available'
 
 
 if __name__ == '__main__':
