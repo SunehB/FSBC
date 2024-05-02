@@ -1,1 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("https://i.pinimg.com/originals/fc/c6/0a/fcc60a6044f5ea1b7d16025b951ca307.gif");
+    background-size: cover; /* This ensures that the background image covers the entire screen */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
+.container {
+    text-align: center;
+}
+
+
+form {
+    text-align: center;
+}
+
+
+
+/* Added styling for the section displaying satellite information */
+#n2yo-result {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px; /* Added margin-bottom for separation from the bottom */
+    color: rgb(0, 0, 0);
+    width: 500px; /* Set a fixed width to make it smaller */
+    position: fixed;
+    bottom: 100px; /* Position 20px from the bottom */
+    right: 20px; /* Position 20px from the right */
+}
+
+#n2yo-result h2 {
+    margin-bottom: 10px; /* Added margin-bottom for better spacing */
+}
