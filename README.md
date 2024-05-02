@@ -1,6 +1,6 @@
 # FSBC
 
-1. Download full project - Viable FSBC App
+1. Download full project - project
 2. Download Flask, Spotipy, request, random, SQLite3
 3. Insert Spotify Client ID, Client Secret, Redirect URI, N2YO key
 4. Delete SQL database and .cache if relaunching page
