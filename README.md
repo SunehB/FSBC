@@ -3,7 +3,7 @@
    - Our project will find the closest satellite to the user's current location by querying the N2YO api. A song is then played which is related to that satellite’s country of origin (probably the national anthem of that country). The songs will be provided using the Spotify API. The list of satellites found will also be stored in a log for future reference so users can see a list of all seen satellites.
 
 2) Product Requirements
-   - Goal: Create a web-interface that allows a user to see what satellites pass over them and play a song corresponding to that satellites country of origin.
+   - Goal: Create a web-interface that allows a user to see what satellites pass over them and play a song corresponding to that satellite's launch year.
    - Non-Goal: The web-interface will not track satellites leaving the region above the query. A new query is only made when the previous song ends.
    - Non-Functional Requirements: Song / Satellite Metadata
 		- Functional Requirements:
